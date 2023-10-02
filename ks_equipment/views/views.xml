@@ -1,0 +1,114 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="ks_equipment.list">
+      <field name="name">ks_equipment list</field>
+      <field name="model">ks_equipment.ks_equipment</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="reference" placeholder="REfErence"/>
+          <field name="employee_id" required="True"/>
+        <!--  <field name="materiel" required="True"/> -->
+          <field name="Date_dElivrance" required="True"/>
+        <!--  <field name="NumSerie"/>  -->
+          <field name="Valeur" optional="hide"/>
+        <!--  <field name="Categorie"/>
+          <field name="note"/> -->
+          <field name="attribuE_par_id" optional="hide"/>
+          <field name="state"/>
+        </tree>
+      </field>
+    </record>
+
+
+     <!-- explicit form view definition -->
+
+    <record model="ir.ui.view" id="ks_equipment.form">
+      <field name="name">ks_equipment form</field>
+      <field name="model">ks_equipment.ks_equipment</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+            <button name="attribuer" type="object" class="oe_highlight" string="Attribuer" attrs="{'invisible': [('state', '!=', 'nouveau')]}"></button>
+            <button name="retourner" type="object" class="oe_highlight" string="Retourner" attrs="{'invisible': [('state', '!=', 'attribuE')]}"></button>
+            <button name="perdu" type="object" class="oe_highlight" string="Marquer comme perdu" attrs="{'invisible': [('state', '!=', 'attribuE')]}"></button>
+            <button name="cassE" type="object" class="oe_highlight" string="Marquer comme cassE" attrs="{'invisible': [('state', '!=', 'attribuE')]}"></button>
+            <button name="annuler" type="object" class="oe_highlight" string="Annuler" attrs="{'invisible': [('state', '!=', 'attribuE')]}"></button>
+            <field name="state" widget="statusbar" nolabel="1" states=""></field>
+          </header>
+          <sheet>
+            <sheet>
+              <group>
+                <field name="reference" placeholder="Référence"/>
+                <field name="employee_id" required="True"/>
+                <field name="materiel_id" required="True"/>
+                <field name="Date_dElivrance" required="True"/>
+                <field name="NumSerie"/>
+                <field name="Valeur" optional="hide"/>
+                <field name="Category_id"/>
+                <field name="note"/>
+                <field name="attribuE_par_id" optional="hide"/>
+               <!-- <field name="state" /> -->
+              </group>
+            </sheet>
+            <div class="oe_chatter">
+              <field name="message_follower_ids" widget="mail_followers" ></field>
+              <field name="message_ids" widget="mail_thread" ></field>
+            </div>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="attribute_window">
+      <field name="name">Attribution</field>
+      <field name="res_model">ks_equipment.ks_equipment</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="template_window">
+      <field name="name">Product template</field>
+      <field name="res_model">product.template</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="ks_equipment.action_server">
+      <field name="name">ks_equipment server</field>
+      <field name="model_id" ref="model_ks_equipment_ks_equipment"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+
+    <menuitem name="ks_equipment" id="ks_equipment.menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Attribution" id="ks_equipment.menu_1"  parent="ks_equipment.menu_root"/>
+    <menuitem name="Matériel" id="ks_equipment.menu_2"  parent="ks_equipment.menu_root"/>
+
+    <!-- actions -->
+
+    <menuitem name="List" id="ks_equipment.menu_1_list" action="attribute_window" parent="ks_equipment.menu_1"
+              />
+    <menuitem name="List" id="ks_equipment.menu_2_list" parent="ks_equipment.menu_2"
+              action="template_window"/>
+   <!-- <menuitem name="Server to list" id="ks_equipment" parent="ks_equipment.menu_2"
+              action="ks_equipment.action_server"/> -->
+
+  </data>
+</odoo>

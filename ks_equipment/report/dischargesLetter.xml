@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--  by ChatGPT  -->
+
+
+<odoo>
+    <data>
+        <template id="report_dischargesLetter">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+
+                       Objet: Lettre de décharge <br/><br/><br/>
+
+                        Par la présente lettre, l'entreprise confie à Monsieur(Madame) <span t-field="o.employee_id"/> le matériel <span t-field="o.materiel_id"/>, le <span t-field="o.Date_dElivrance"/>.<br/><br/>
+
+                        Ce matériel demeure la propriété de l'entreprise.<br/><br/>
+
+                        Il est convenu que Monsieur(Madame) <span t-field="o.employee_id"/> ne pourra utiliser ce matériel à d'autres fins que des fins professionnelles, sans autorisation expresse et préalable de l'entreprise.<br/><br/>
+
+                        Monsieur(Madame) <span t-field="o.employee_id"/> s'engage à restituer l'intégralité du matériel ainsi confié à la date convenu pour le rendre.<br/><br/>
+
+                        Il est précisé qu'en cas de détérioration ou de perte du matériel ainsi prêté, à la suite d'une faute lourde de Monsieur(Madame) <span t-field="o.employee_id"/>, ce dernier pourra être tenu de rembourser à l'entreprise la valeur de ce matériel qui s'élève à <span t-field="o.Valeur"/> Ariary.<br/><br/><br/><br/>
+                        <center>
+                         <strong>
+                             Fait à Antananarivo, le <span t-field="o.Date_dElivrance"/>
+                         </strong><br/><br/><br/><br/>
+                        </center>
+                        <pre>
+                         Signature<br/>
+                        </pre>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_attestation_de_restitution">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+
+                       Objet: Attestation de restitution <br/><br/><br/>
+
+                        Je sousigné, Monsieur(Madame) Admnistrator, de l'entreprise atteste que Monsieur(Madame) <span t-field="o.employee_id"/> a bien restitué le matériel <span t-field="o.materiel_id"/>.<br/><br/>
+
+                        Par la présente, la société atteste avoir récupéré l'intégralité du matériel mis à la disposition du salarié.<br/><br/><br/><br/>
+                        <center>
+                         <strong>
+                             Fait à Antananarivo, le <span t-field="o.Date_dElivrance"/><br/><br/><br/><br/>
+                         </strong>
+                        </center>
+                        <pre>
+                         Signature<br/>
+                        </pre>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <record id="action_report_dischargesLetter" model="ir.actions.report">
+            <field name="name">Discharges Letter Report</field>
+            <field name="model">ks_equipment.ks_equipment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">ks_equipment.report_dischargesLetter</field>
+            <field name="binding_model_id" ref="model_ks_equipment_ks_equipment"/>
+        </record>
+        <record id="action_report_attestation_de_restitution" model="ir.actions.report">
+            <field name="name">Attestation de restitution</field>
+            <field name="model">ks_equipment.ks_equipment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">ks_equipment.report_attestation_de_restitution</field>
+            <field name="binding_model_id" ref="model_ks_equipment_ks_equipment"/>
+        </record>
+    </data>
+</odoo>
