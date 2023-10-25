@@ -1,0 +1,122 @@
+<odoo>
+  <data>
+
+
+      <record model="ir.ui.view" id="fast_alu_wiz_form">
+         <field name="name">Devis fastAlu form</field>
+         <field name="model">fast.devis.wizard</field>
+         <field name="arch" type="xml">
+           <form>
+             <notebook >
+               <page string="Fenêtre/Porte en Alu">
+
+                 <group>
+                 <group>
+                   <!--<field name="currency_id" /> -->
+                   <field name="article" string="Article" />
+                   <field name="largeur" string="Largeur (en mm)" placeholder="unité de mesure en millimètre" />
+                   <field name="hauteur" string="Hauteur (en mm)" placeholder="unité de mesure en millimètre" />
+                   <field name="prix" string="Prix par mètre carré (en Ariary)"/>
+                   <field name="prix_unitaire" string="Prix unitaire (en Ariary)"/>
+                   <field name="quantity" string="Quantité"/>
+                   <field name="reduction" string="Pourcentage Remise"/>
+                 </group>
+
+                 <group>
+                   <field name="couleur_radioD" widget="radio" domain="[('product_tmpl_id', '=', article), ('attribute_id.name', '=', 'couleur')]"
+                          attrs="{'invisible': [('article', '=', False)]}" noupdate="1"/>
+
+                   <field name="vitre_radioD" widget="radio" domain="[('product_tmpl_id', '=', article), ('attribute_id.name', '=', 'vitrage')]"
+                          attrs="{'invisible': [('article', '=', False)]}" noupdate="1" />
+
+                   <field name="epaisseur_radioD" widget="radio" domain="[('product_tmpl_id', '=', article), ('attribute_id.name', '=', 'épaisseur')]"
+                          attrs="{'invisible': [('article', '=', False)]}" noupdate="1" />
+                 </group>
+                 </group>
+
+                   <b><h2> Accessoires:</h2></b>
+                   <field name="accesory_list_art"/>
+
+                    <br/> <button name="add_action" string="Ajouter" type="object" class="oe_highlight"/>
+
+               </page>
+
+              <!-- PVC -->
+               <page string="Fenêtre et porte en PVC">
+
+                 <group>
+                 <group>
+                   <field name="articleP" string="Article" />
+<!--                   <field name="is_vitr_empty"  />-->
+                   <field name="largeurP" string="Largeur (en mm)" placeholder="unité de mesure en millimètre" />
+                   <field name="hauteurP" string="Hauteur (en mm)" placeholder="unité de mesure en millimètre" />
+                   <field name="prixP" string="Prix par mètre carré (en Ariary)"/>
+                   <field name="prix_unitaireP" string="Prix unitaire (en Ariary)"/>
+                   <field name="quantityP" string="Quantité"/>
+                   <field name="reductionP" string="Pourcentage Remise"/>
+                 </group>
+
+                 <group>
+                   <field name="couleurP_radioD" widget="radio" domain="[('product_tmpl_id', '=', articleP), ('attribute_id.name', '=', 'couleur')]"
+                          attrs="{'invisible': [('articleP', '=', False)]}" noupdate="1"/>
+
+                   <field name="vitreP_radioD" widget="radio" domain="[('product_tmpl_id', '=', articleP), ('attribute_id.name', '=', 'vitrage')]"
+                          attrs="{'invisible': [('articleP', '=', False)]}" noupdate="1" />
+
+                   <field name="epaisseurP_radioD" widget="radio" domain="[('product_tmpl_id', '=', articleP), ('attribute_id.name', '=', 'épaisseur')]"
+                          attrs="{'invisible': [('articleP', '=', False)]}" noupdate="1" />
+                 </group>
+                 </group>
+
+
+                        <b><h2> Accessoires:</h2></b>
+                      <field name="accesoryP_list_art"/>
+
+
+
+                    <br/> <button name="add_actionP" string="Ajouter" type="object" class="oe_highlight"/>
+
+               </page>
+
+                <!-- Autres produits (Placo, Granite, Inox, Mélamine) -->
+               <page string="Autres produits (PGIM)">
+                 <group>
+                 <group>
+                   <field name="articleA" string="Article" />
+                   <field name="is_inox" attrs="{'invisible': True}"/>
+                   <!--<field name="Category_id" /> -->
+
+                   <field name="largeurA" string="Largeur (en mm)" placeholder="unité de mesure en millimètre" attrs="{'invisible': [('is_inox', '=', True)]}" />
+                   <field name="longueurA" string="Longueur (en mm)" placeholder="unité de mesure en millimètre" />
+                   <field name="prixA" string="Prix par mètre carré (en Ariary)"/>
+                   <field name="prix_unitaireA" string="Prix unitaire (en Ariary)"/>
+                   <field name="quantityA" string="Quantité"/>
+                   <field name="reductionA" string="Pourcentage Remise"/>
+                 </group>
+                 </group>
+
+                      <b><h2> Accessoires:</h2></b>
+                     <field name="accesoryA_list_art"/>
+
+                    <br/> <button name="add_actionA" string="Ajouter" type="object" class="oe_highlight"/>
+
+               </page>
+
+
+             </notebook>
+           </form>
+         </field>
+      </record>
+
+
+
+      <record id="action_devis_wizard" model="ir.actions.act_window">
+          <field name="name">Devis Wizard</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="res_model">fast.devis.wizard</field>
+          <field name="view_mode">form</field>
+          <field name="target">new</field>
+      </record>
+
+  </data>
+</odoo>
